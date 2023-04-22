@@ -1,0 +1,21 @@
+buttonBack: Back
+buttonLangs: Langs
+buttonRU: Русский
+buttonEN: English
+buttonSettingsLang: Language
+
+msgBye: Bye!
+msgHello: Hello!
+msgInitEnd: |-
+  Welcome to Youtube bot, `{{ .UserName }}`!
+
+  Bot settings up finished and now you may work with Youtube.
+msgInitLang: Hi! Select language
+msgLangSelect: Select language
+msgSessionConflict: Navigation conflict with one of previous menus. Session ended. Please run command again.
+msgSettings: |-
+  *Settings*
+
+  Please, select an settings you want to change
+msgUserNotRegistered: |-
+  bot error: user `{{ .UserName }}` not registered

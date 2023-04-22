@@ -1,0 +1,21 @@
+buttonBack: Назад
+buttonLangs: Языки
+buttonRU: Русский
+buttonEN: English
+buttonSettingsLang: Язык
+
+msgBye: Пока!
+msgHello: Привет!
+msgInitEnd: |-
+  Добро пожаловать в AutoCI bot, `{{ .UserName }}`!
+
+  Настройка бота завершена и теперь вы можете работать с AutoCI
+msgInitLang: Привет! Выберите язык
+msgLangSelect: Выберите язык
+msgSessionConflict: Навигация конфликтует с одним из предыдущих меню. Сеанс завершен. Пожалуйста, повторите команду.
+msgSettings: |-
+  *Настройки*
+
+  Пожалуйста, выберите настройки, которые вы хотите изменить
+msgUserNotRegistered: |-
+  bot error: пользователь `{{ .UserName }}` не зарегистрирован
