@@ -58,9 +58,12 @@ func Init() (Bundle, error) {
 	bundle := i18n.NewBundle(language.English)
 	bundle.RegisterUnmarshalFunc("yaml", yaml.Unmarshal)
 
+	// English
 	if _, err := bundle.LoadMessageFile("./modules/localization/locales/en.yaml"); err != nil {
 		return Bundle{}, err
 	}
+
+	// Russian
 	if _, err := bundle.LoadMessageFile("./modules/localization/locales/ru.yaml"); err != nil {
 		return Bundle{}, err
 	}
