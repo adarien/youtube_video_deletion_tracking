@@ -11,6 +11,7 @@ type confOpts struct {
 
 	PgSQL    pgSQLConf    `conf:"pgSQL" conf_extraopts:"required"`
 	Telegram telegramConf `conf:"telegram" conf_extraopts:"required"`
+	YouTube  youTubeConf  `conf:"youtube" conf_extraopts:"required"`
 }
 
 type pgSQLConf struct {
@@ -25,6 +26,11 @@ type telegramConf struct {
 	APIToken  string   `conf:"apiToken" conf_extraopts:"required"`
 	RedisHost string   `conf:"redisHost" conf_extraopts:"default=127.0.0.1:6379"`
 	Users     []string `conf:"users" conf_extraopts:"required"`
+}
+
+type youTubeConf struct {
+	Secret string
+	User   string
 }
 
 func confRead(confPath string) (confOpts, error) {
