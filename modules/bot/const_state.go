@@ -16,4 +16,7 @@ var (
 	// Settings
 	stateSettings           = tg.SessState("settings")
 	stateSettingsLangSelect = tg.SessState("settLangSelect")
+
+	// YouTube
+	stateYouTube = tg.SessState("youTube")
 )

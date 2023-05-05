@@ -42,6 +42,8 @@ func (c *Ctx) Init(opts appctx.CustomContextFuncOpts) (appctx.CfgData, error) {
 		RedisHost: c.Conf.Telegram.RedisHost,
 		Users:     c.Conf.Telegram.Users,
 		PrimeDB:   primeDB,
+		User:      c.Conf.YouTube.User,
+		Secret:    c.Conf.YouTube.Secret,
 	})
 	if err != nil {
 		return appctx.CfgData{}, err

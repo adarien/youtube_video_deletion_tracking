@@ -21,6 +21,8 @@ type Settings struct {
 	RedisHost string
 	Users     []string
 	PrimeDB   primedb.DB
+	User      string
+	Secret    string
 }
 
 type Bot struct {
@@ -33,6 +35,8 @@ type botCtx struct {
 	users users.Users
 	lb    localization.Bundle
 	d     primedb.DB
+	u     string
+	s     string
 }
 
 func Init(settings Settings) (*Bot, error) {
@@ -58,6 +62,11 @@ func Init(settings Settings) (*Bot, error) {
 					Command:     "settings",
 					Description: "Settings",
 					Handler:     settingsCmd,
+				},
+				{
+					Command:     "test",
+					Description: "YouTube test",
+					Handler:     testCmd,
 				},
 			},
 
@@ -106,6 +115,10 @@ func Init(settings Settings) (*Bot, error) {
 					StateHandler:    settingsLangSelectState,
 					CallbackHandler: settingsLangSelectCallback,
 				},
+				// YouTube test connection
+				stateYouTube: {
+					StateHandler: youTubeState,
+				},
 			},
 		},
 		botCtx{
@@ -117,6 +130,8 @@ func Init(settings Settings) (*Bot, error) {
 				}),
 			lb: lb,
 			d:  settings.PrimeDB,
+			u:  settings.User,
+			s:  settings.Secret,
 		})
 	if err != nil {
 		return nil, fmt.Errorf("bot setup error: %v", err)
