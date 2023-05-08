@@ -1,11 +1,7 @@
-// TODO: it is necessary to transfer part of functionality to ds/youtube
-
 package youtube
 
 import (
-	"fmt"
 	"github.com/adarien/youtube_video_deletion_tracking/ds/youtube"
-	yt "google.golang.org/api/youtube/v3"
 )
 
 type Settings struct {
@@ -14,10 +10,11 @@ type Settings struct {
 }
 
 type YT struct {
-	s yt.Service
+	c youtube.Client
 }
 
-type playlistMeta struct {
+// TODO: WIP...
+type playlistData struct {
 	ID    string
 	Title string
 	Count int64
@@ -31,63 +28,42 @@ func Init(s Settings) (YT, error) {
 	}
 
 	return YT{
-		s: *client.Service,
+		c: client,
 	}, nil
 }
 
-func (y *YT) ChannelListsGet(username string) (*yt.ChannelListResponse, error) {
+func (y *YT) PlayListsGet(username string) ([]playlistData, error) {
 
-	call := y.s.Channels.List([]string{"snippet", "contentDetails"})
-	call = call.ForUsername(username)
+	var playlists []playlistData
 
-	response, err := call.Do()
-	if err != nil {
-		return nil, fmt.Errorf("channel not call: %v", err)
-	}
-	if len(response.Items) == 0 {
-		return nil, fmt.Errorf("incorrect userName")
-	}
-
-	return response, nil
-}
-
-func (y *YT) PlayListsGet(response *yt.ChannelListResponse) ([]playlistMeta, error) {
-
-	var playlists []playlistMeta
-
-	channelID := response.Items[0].Id
-
-	response2, err := y.PlaylistDataGet(channelID)
+	channelID, err := y.c.ChannelIDsGet(username)
 	if err != nil {
 		return nil, err
 	}
 
-	for _, playlist := range response2.Items {
-		if playlist.Snippet.Title != "Favorites" {
-			meta := playlistMeta{}
-			meta.ID = playlist.Id
-			meta.Title = playlist.Snippet.Title
-			meta.Count = playlist.ContentDetails.ItemCount
-			playlists = append(playlists, meta)
+	for _, id := range channelID {
+
+		response2, err := y.c.PlaylistDataGet(id)
+		if err != nil {
+			return nil, err
+		}
+
+		for _, playlist := range response2.Items {
+
+			if playlist.Snippet.Title == "Favorites" {
+				continue
+			}
+
+			playlists = append(
+				playlists,
+				playlistData{
+					ID:    playlist.Id,
+					Title: playlist.Snippet.Title,
+					Count: playlist.ContentDetails.ItemCount,
+				},
+			)
 		}
 	}
 
 	return playlists, nil
-}
-
-func (y *YT) PlaylistDataGet(channelId string) (*yt.PlaylistListResponse, error) {
-
-	part := []string{"snippet", "contentDetails"}
-	call := y.s.Playlists.List(part)
-	if channelId != "" {
-		call = call.ChannelId(channelId)
-	}
-	call = call.MaxResults(25)
-
-	response, err := call.Do()
-	if err != nil {
-		return nil, fmt.Errorf("getPlaylistsInfo not call: %v", err)
-	}
-
-	return response, nil
 }

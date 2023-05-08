@@ -29,22 +29,16 @@ func youTubeState(t *tg.Telegram, _ *tg.Session) (tg.StateHandlerRes, error) {
 		return tg.StateHandlerRes{}, err
 	}
 
-	// TODO: improve next code
-
-	resp, err := yt.ChannelListsGet(bCtx.u)
+	pls, err := yt.PlayListsGet(bCtx.u)
 	if err != nil {
-		return tg.StateHandlerRes{}, fmt.Errorf("channel lists get: %w", err)
-	}
-
-	meta, err := yt.PlayListsGet(resp)
-	if err != nil {
-		return tg.StateHandlerRes{}, fmt.Errorf("playlists meta get: %s", err)
+		return tg.StateHandlerRes{}, fmt.Errorf("playlists pls get: %s", err)
 	}
 
 	m := ""
-	for _, l := range meta {
+	for _, l := range pls {
 		m = m + fmt.Sprintf("%s\n", l.Title)
 	}
+
 	return tg.StateHandlerRes{
 		Message:      m,
 		StickMessage: true,
