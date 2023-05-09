@@ -10,11 +10,11 @@ func (c *Client) ChannelIDsGet(username string) ([]string, error) {
 
 	response, err := call.ForUsername(username).Do()
 	if err != nil {
-		return nil, fmt.Errorf("ch not call: %w", err)
+		return nil, fmt.Errorf("channel call: %w", err)
 	}
 
 	if len(response.Items) == 0 {
-		return nil, fmt.Errorf("incorrect username")
+		return nil, fmt.Errorf("channels not found")
 	}
 
 	for _, ch := range response.Items {
