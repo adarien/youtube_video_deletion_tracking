@@ -31,7 +31,7 @@ func youTubeState(t *tg.Telegram, _ *tg.Session) (tg.StateHandlerRes, error) {
 
 	pls, err := yt.PlayListsGet(bCtx.u)
 	if err != nil {
-		return tg.StateHandlerRes{}, fmt.Errorf("playlists pls get: %s", err)
+		return tg.StateHandlerRes{}, fmt.Errorf("playlists pls get: %w", err)
 	}
 
 	m := ""
