@@ -15,6 +15,8 @@ func testCmd(_ *tg.Telegram, _ *tg.Session, _ string, _ string) (tg.CommandHandl
 
 func youTubeState(t *tg.Telegram, _ *tg.Session) (tg.StateHandlerRes, error) {
 
+	var m string
+
 	bCtx, b := t.UsrCtxGet().(botCtx)
 	if b == false {
 		return tg.StateHandlerRes{}, misc.ErrUserCtxExtract
@@ -34,7 +36,6 @@ func youTubeState(t *tg.Telegram, _ *tg.Session) (tg.StateHandlerRes, error) {
 		return tg.StateHandlerRes{}, fmt.Errorf("playlists pls get: %w", err)
 	}
 
-	m := ""
 	for _, l := range pls {
 		m = m + fmt.Sprintf("%s\n", l.Title)
 	}
