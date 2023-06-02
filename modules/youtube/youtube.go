@@ -50,9 +50,9 @@ func (y *YT) PlayListsGet(username string) ([]playlistData, error) {
 
 		for _, playlist := range response2.Items {
 
-			if playlist.Snippet.Title == "Favorites" {
-				continue
-			}
+			// if playlist.Snippet.Title == "Favorites" {
+			// 	continue
+			// }
 
 			playlists = append(
 				playlists,
