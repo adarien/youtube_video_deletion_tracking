@@ -64,7 +64,7 @@ func Init(settings Settings) (*Bot, error) {
 					Handler:     settingsCmd,
 				},
 				{
-					Command:     "test command",
+					Command:     "test",
 					Description: "YouTube test",
 					Handler:     testCmd,
 				},
