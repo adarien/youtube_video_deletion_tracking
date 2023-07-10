@@ -2,6 +2,7 @@ package users
 
 /*
 	WIP...
+	TODO: mock gorm.DB
 */
 
 // // MockDatabase is a mock implementation of the database interface
