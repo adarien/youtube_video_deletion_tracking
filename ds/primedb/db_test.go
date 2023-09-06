@@ -21,7 +21,6 @@ func (m *MockDB) Close() error {
 }
 
 // TODO: WIP...
-
 // func TestConnect(t *testing.T) {
 // 	// Arrange
 // 	mockedDB := new(MockDB)
